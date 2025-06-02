@@ -28,8 +28,8 @@ resource "aws_instance" "my_instance" {
   associate_public_ip_address = each.value.has_public_ip
   vpc_security_group_ids      = each.value.security_group_ids
   user_data                   = each.value.user_data
-  key_name                    = var.instance_key_pair
   iam_instance_profile        = each.value.instance_profile
+  key_name                    = var.instance_key_pair
   user_data_replace_on_change = true
 
   tags = {

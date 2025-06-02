@@ -92,9 +92,11 @@ module "ec2_servers" {
       instance_private_ip = "10.10.10.10"
       has_public_ip       = true
       security_group_ids  = [module.security_groups.gp_bastion_sg_id]
-      instance_profile    = module.iam_roles.gp_bastion_role_name
+      instance_profile    = module.iam_roles.gp_bastion_instance_profile_name
     }
   }
+
+  depends_on = [module.iam_roles]
 }
 
 # --------------------------------------------------------------

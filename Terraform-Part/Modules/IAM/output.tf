@@ -14,10 +14,10 @@ output "gp_eks_node_group_role_arn" {
 
 output "gp_bastion_role_arn" {
   description = "The ARN of the IAM role assigned to the Bastion host"
-  value       = aws_iam_role.gp_bastion_role.arn
+  value       = aws_iam_role.gp_bastion_iam_role.arn
 }
 
-output "gp_bastion_role_name" {
-  description = "The name of the IAM role assigned to the Bastion host"
-  value       = aws_iam_role.gp_bastion_role.name
+output "gp_bastion_instance_profile_name" {
+  description = "The name of the instance profile assigned to the Bastion host"
+  value       = aws_iam_instance_profile.gp_bastion_instance_profile.name
 }

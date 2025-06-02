@@ -2,7 +2,7 @@
 # Creating IAM Role for the Bastion Host
 # ----------------------------------------------------------------------
 
-resource "aws_iam_role" "gp_bastion_role" {
+resource "aws_iam_role" "gp_bastion_iam_role" {
   name        = "gp_bastion_role"
   description = "Allows the bastion host to access the EKS cluster."
   assume_role_policy = jsonencode({
@@ -19,4 +19,9 @@ resource "aws_iam_role" "gp_bastion_role" {
       },
     ]
   })
+}
+
+resource "aws_iam_instance_profile" "gp_bastion_instance_profile" {
+  name = "gp_bastion_instance_profile"
+  role = aws_iam_role.gp_bastion_iam_role.name
 }
