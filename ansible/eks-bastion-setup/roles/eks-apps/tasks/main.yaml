@@ -1,0 +1,28 @@
+- name: Add repos (persistent)
+  command: helm repo add {{ item.name }} {{ item.url }}
+  loop:
+    - { name: "jenkins", url: "https://charts.jenkins.io" }
+    - { name: "argo", url: "https://argoproj.github.io/argo-helm" }
+
+
+- name: Install Jenkins with Helm using gp2 storage
+  kubernetes.core.helm:
+    name: jenkins
+    chart_ref: jenkins/jenkins
+    release_namespace: jenkins
+    create_namespace: true
+    state: present
+    values:
+      controller:
+        jenkinsHome: "/var/jenkins_home"
+      persistence:
+        enabled: true
+        storageClass: "gp2"
+
+- name: Install ArgoCD with Helm
+  kubernetes.core.helm:
+    name: argocd
+    chart_ref: argo/argo-cd
+    release_namespace: argocd
+    create_namespace: true
+    state: present

@@ -1,0 +1,50 @@
+- name: Create .kube directory
+  file:
+    path: "~{{ ansible_user }}/.kube"
+    state: directory
+    mode: '0755'
+    owner: ubuntu
+    group: ubuntu
+
+- name: Download kubectl binary
+  get_url:
+    url: "{{ kubectl_url }}"
+    dest: /tmp/kubectl
+    mode: '0755'
+  register: kubectl_download
+
+- name: Download kubectl checksum
+  get_url:
+    url: "{{ kubectl_url }}.sha256"
+    dest: /tmp/kubectl.sha256
+
+- name: Verify checksum
+  shell: |
+    cd /tmp && echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+  register: checksum_verify
+
+- name: Assert checksum verification
+  assert:
+    that:
+      - "'OK' in checksum_verify.stdout"
+
+
+- name: Move kubectl to install path
+  command: mv /tmp/kubectl {{ kubectl_install_path }}
+  args:
+    creates: "{{ kubectl_install_path }}"
+  when: kubectl_download.changed
+
+- name: Ensure kubectl is executable
+  file:
+    path: "{{ kubectl_install_path }}"
+    mode: '0755'
+    owner: root
+    group: root
+    state: file
+
+- name: Update kubeconfig for EKS
+  shell: |
+    export KUBECONFIG=~{{ ansible_user }}/.kube/config
+    aws eks update-kubeconfig --region {{ aws_region }} --name {{ eks_cluster_name }}
+
