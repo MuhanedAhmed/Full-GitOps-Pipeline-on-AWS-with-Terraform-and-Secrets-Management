@@ -108,8 +108,9 @@ module "eks_cluster" {
   gp_cluster_subnets_ids     = module.main_vpc.private_subnet_IDs
   gp_eks_cluster_role_arn    = module.iam_roles.gp_eks_cluster_role_arn
   gp_eks_node_group_role_arn = module.iam_roles.gp_eks_node_group_role_arn
-  gp_node_group_sg_id        = module.security_groups.gp_node_group_sg_id
   gp_bastion_role_arn        = module.iam_roles.gp_bastion_role_arn
+  gp_bastion_sg_id           = module.security_groups.gp_bastion_sg_id
+  gp_eks_cluster_sg_id       = module.security_groups.gp_eks_cluster_sg_id
 
   depends_on = [module.iam_roles]
 }

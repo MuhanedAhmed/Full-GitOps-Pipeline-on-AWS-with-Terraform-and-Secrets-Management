@@ -17,5 +17,6 @@ resource "aws_eks_cluster" "gp_eks_cluster" {
     endpoint_private_access = true
     endpoint_public_access  = false
     subnet_ids              = values(var.gp_cluster_subnets_ids)
+    security_group_ids      = [var.gp_eks_cluster_sg_id]
   }
 }

@@ -7,7 +7,7 @@ output "gp_bastion_sg_id" {
   description = "The ID of the security group associated with the Bastion host"
 }
 
-output "gp_node_group_sg_id" {
-  value       = aws_security_group.gp_node_group_sg.id
-  description = "The ID of the security group attached to the EKS managed node group"
+output "gp_eks_cluster_sg_id" {
+  value       = aws_security_group.gp_eks_cluster_sg.id
+  description = "The ID of the security group associated with the EKS cluster"
 }

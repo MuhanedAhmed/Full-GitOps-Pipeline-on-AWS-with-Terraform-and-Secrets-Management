@@ -8,7 +8,17 @@ resource "aws_eks_access_entry" "gp_eks_access_entry" {
   type          = "STANDARD"
 }
 
-resource "aws_eks_access_policy_association" "gp_eks_access_policy_association" {
+resource "aws_eks_access_policy_association" "gp_eks_access_policy_association_1" {
+  cluster_name  = aws_eks_cluster.gp_eks_cluster.name
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+  principal_arn = var.gp_bastion_role_arn
+
+  access_scope {
+    type = "cluster"
+  }
+}
+
+resource "aws_eks_access_policy_association" "gp_eks_access_policy_association_2" {
   cluster_name  = aws_eks_cluster.gp_eks_cluster.name
   policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSAdminPolicy"
   principal_arn = var.gp_bastion_role_arn

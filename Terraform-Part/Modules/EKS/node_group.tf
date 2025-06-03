@@ -25,6 +25,6 @@ resource "aws_eks_node_group" "gp_eks_node_group" {
 
   remote_access {
     ec2_ssh_key               = "gp_keypair"
-    source_security_group_ids = [var.gp_node_group_sg_id]
+    source_security_group_ids = [var.gp_bastion_sg_id]
   }
 }
