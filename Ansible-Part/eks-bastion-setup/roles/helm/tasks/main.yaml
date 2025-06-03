@@ -1,0 +1,30 @@
+- name: Install dependencies
+  apt:
+    name: apt-transport-https
+    state: present
+ 
+- name: Download Helm GPG key
+  get_url:
+    url: "{{ helm_apt_key_url }}"
+    dest: /tmp/helm.asc
+    mode: '0644'
+
+- name: Convert GPG key to binary format
+  command: gpg --dearmor -o {{ helm_apt_key_path }} /tmp/helm.asc
+  args:
+    creates: "{{ helm_apt_key_path }}"
+
+- name: Add Helm APT repository
+  apt_repository:
+    repo: "{{ helm_apt_repo }}"
+    filename: helm-stable-debian
+    state: present
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+ 
+- name: Install Helm
+  apt:
+    name: helm
+    state: present
