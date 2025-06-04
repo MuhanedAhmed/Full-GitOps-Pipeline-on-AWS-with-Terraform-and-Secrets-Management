@@ -31,14 +31,14 @@ pipeline {
         }
 
         stage('Login to Amazon ECR') {
-    steps {
+          steps {  
         
             sh '''
                 aws ecr get-login-password --region $AWS_REGION | \
                 docker login --username AWS --password-stdin $ECR_REGISTRY
             '''
         
-    }
+            }
 }
 
         stage('Tag and Push Image to ECR') {
