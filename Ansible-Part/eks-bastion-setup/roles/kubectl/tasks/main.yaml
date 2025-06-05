@@ -3,8 +3,9 @@
     path: "~{{ ansible_user }}/.kube"
     state: directory
     mode: '0755'
-    owner: ubuntu
-    group: ubuntu
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
 
 - name: Download kubectl binary
   get_url:
@@ -48,3 +49,11 @@
     export KUBECONFIG=~{{ ansible_user }}/.kube/config
     aws eks update-kubeconfig --region {{ aws_region }} --name {{ eks_cluster_name }}
 
+
+- name: Fix ownership of kubeconfig file
+  file:
+    path: "/home/{{ ansible_user }}/.kube/config"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0600'
+    state: file

@@ -12,6 +12,7 @@
     release_namespace: jenkins
     create_namespace: true
     state: present
+    kubeconfig: "/home/{{ ansible_user }}/.kube/config"
     values:
       controller:
         jenkinsHome: "/var/jenkins_home"
@@ -26,3 +27,5 @@
     release_namespace: argocd
     create_namespace: true
     state: present
+    kubeconfig: "/home/{{ ansible_user }}/.kube/config"
+
