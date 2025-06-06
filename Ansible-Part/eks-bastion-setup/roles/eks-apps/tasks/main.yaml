@@ -19,16 +19,29 @@
         enabled: true
         storageClass: "gp2"
 
+- name: Ensure pip3 is installed on bastion
+  ansible.builtin.package:
+    name: python3-pip
+    state: present
+
+- name: Install kubernetes Python module via pip3 on bastion
+  ansible.builtin.pip:
+    name: kubernetes
+    executable: pip3
+
 - name: Add Kaniko Service Account
   kubernetes.core.k8s:
     state: present
-    apiVersion: v1
-    kind: ServiceAccount
-    metadata:
-      name: kaniko-sa
-      namespace: jenkins
-      annotations:
-        eks.amazonaws.com/role-arn: arn:aws:iam::991424600343:role/eks-kaniko-role
+    definition:
+      apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: kaniko-sa
+        namespace: jenkins
+        annotations:
+          eks.amazonaws.com/role-arn: arn:aws:iam::991424600343:role/eks-kaniko-role
+    kubeconfig: "/home/{{ ansible_user }}/.kube/config"
+
 
 - name: Install ArgoCD with Helm
   kubernetes.core.helm:
