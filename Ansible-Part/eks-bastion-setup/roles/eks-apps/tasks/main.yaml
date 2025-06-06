@@ -4,7 +4,6 @@
     - { name: "jenkins", url: "https://charts.jenkins.io" }
     - { name: "argo", url: "https://argoproj.github.io/argo-helm" }
 
-
 - name: Install Jenkins with Helm using gp2 storage
   kubernetes.core.helm:
     name: jenkins
@@ -19,6 +18,17 @@
       persistence:
         enabled: true
         storageClass: "gp2"
+
+- name: Add Kaniko Service Account
+  kubernetes.core.k8s:
+    state: present
+    apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: kaniko-sa
+      namespace: jenkins
+      annotations:
+        eks.amazonaws.com/role-arn: arn:aws:iam::991424600343:role/eks-kaniko-role
 
 - name: Install ArgoCD with Helm
   kubernetes.core.helm:
