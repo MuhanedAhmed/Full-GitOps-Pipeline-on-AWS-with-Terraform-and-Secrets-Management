@@ -1,2 +1,3 @@
 Terraform-Part/.terraform/
 Terraform-Part/*.lock.hcl
+FrontEnd-Part/node_modules/
