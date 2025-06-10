@@ -124,6 +124,44 @@ module "ecr_repo" {
 }
 
 
+
+# Get cluster auth at ROOT level - after EKS is created
+data "aws_eks_cluster_auth" "cluster" {
+  name = module.eks_cluster.gp_eks_cluster_name
+  depends_on = [module.eks_cluster]
+}
+
+provider "kubernetes" {
+  host                   = module.eks_cluster.gp_eks_cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks_cluster.cluster_ca_certificate)
+  token                  = data.aws_eks_cluster_auth.cluster.token
+}
+
+# Two-stage approach
+resource "null_resource" "cluster_ready" {
+  depends_on = [module.eks_cluster, module.iam_roles]
+  
+  provisioner "local-exec" {
+    command = "echo 'Cluster ready'"
+  }
+}
+
+
+module "k8s_secrets" {
+  source = "./Modules/K8S"
+  
+  cluster_name                = module.eks_cluster.gp_eks_cluster_name
+  cluster_endpoint            = module.eks_cluster.gp_eks_cluster_endpoint
+  cluster_ca_certificate      = module.eks_cluster.cluster_ca_certificate
+  iam_user_access_key_id      = module.iam_roles.access_key_id
+  iam_user_secret_access_key  = module.iam_roles.secret_access_key
+  depends_on = [null_resource.cluster_ready]
+  # Ensure that the EKS cluster is ready before creating Kubernetes resources
+  # This ensures that the Kubernetes provider is configured correctly
+  # and that the cluster is fully operational before applying Kubernetes resources.
+  # This is particularly important for creating secrets or other resources that depend on the cluster being available.
+    
+    
 module "external_operator" {
   source        = "./Modules/External_Operator"  # Path to your module
   database_username = "mongoodb"               # Name for the operator

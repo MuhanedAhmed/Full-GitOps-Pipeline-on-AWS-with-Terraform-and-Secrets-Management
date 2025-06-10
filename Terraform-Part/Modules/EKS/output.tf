@@ -10,3 +10,15 @@ output "gp_eks_cluster_endpoint" {
   description = "The API server endpoint of the EKS cluster, used to interact with the Kubernetes control plane"
   value       = aws_eks_cluster.gp_eks_cluster.endpoint
 }
+
+
+
+output "cluster_ca_certificate" {
+  description = "Base64 encoded certificate data required to communicate with the cluster"
+  value       = aws_eks_cluster.gp_eks_cluster.certificate_authority[0].data
+}
+
+output "cluster_id" {
+  description = "The ID of the EKS cluster"
+  value       = aws_eks_cluster.gp_eks_cluster.id
+}
