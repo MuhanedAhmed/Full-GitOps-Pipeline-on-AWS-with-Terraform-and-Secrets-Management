@@ -1,0 +1,9 @@
+variable "database_username" {
+  description = "The name of the database"
+  type        = string
+}
+
+variable "database_password" {
+  description = "The password for the database"
+  type        = string
+}

@@ -122,3 +122,10 @@ module "eks_cluster" {
 module "ecr_repo" {
   source = "./Modules/ECR"
 }
+
+
+module "external_operator" {
+  source        = "./Modules/External_Operator"  # Path to your module
+  database_username = "mongoodb"               # Name for the operator
+  database_password     = "password123"            # Password for the operator
+}
