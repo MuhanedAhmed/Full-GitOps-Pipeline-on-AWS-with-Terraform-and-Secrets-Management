@@ -8,12 +8,13 @@ spec:
   source:
     repoURL: https://charts.jenkins.io
     chart: jenkins
+    targetRevision: 5.8.56
     helm:
       releaseName: jenkins
       valuesObject:
         controller:
-          adminUser: admin
-          adminPassword: admin
+          username: admin
+          password: admin
           jenkinsHome: "/var/jenkins_home"
         persistence:
           enabled: true
