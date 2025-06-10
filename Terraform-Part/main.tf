@@ -160,4 +160,10 @@ module "k8s_secrets" {
   # This ensures that the Kubernetes provider is configured correctly
   # and that the cluster is fully operational before applying Kubernetes resources.
   # This is particularly important for creating secrets or other resources that depend on the cluster being available.
+    
+    
+module "external_operator" {
+  source        = "./Modules/External_Operator"  # Path to your module
+  database_username = "mongoodb"               # Name for the operator
+  database_password     = "password123"            # Password for the operator
 }
