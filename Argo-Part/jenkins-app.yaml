@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jenkins
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.jenkins.io
+    chart: jenkins
+    helm:
+      releaseName: jenkins
+      valuesObject:
+        controller:
+          adminUser: admin
+          adminPassword: admin
+          jenkinsHome: "/var/jenkins_home"
+        persistence:
+          enabled: true
+          storageClass: "gp2"
+          size: 10Gi
+        serviceAccountAgent:
+          create: true
+          name: kaniko-sa
+          annotations:
+            eks.amazonaws.com/role-arn: arn:aws:iam::991424600343:role/eks-kaniko-role
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: jenkins
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
