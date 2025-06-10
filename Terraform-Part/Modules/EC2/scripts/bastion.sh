@@ -29,6 +29,5 @@ echo "Verifying installations..."
 git --version
 ansible --version
 kubectl version --client
-helm version
 
 echo "Installation complete!"
