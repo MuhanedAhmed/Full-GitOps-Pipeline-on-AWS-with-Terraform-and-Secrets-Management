@@ -1,5 +1,5 @@
 - name: Add repos (persistent)
-  command: helm repo add argo https://artifacthub.io/packages/helm/argo/argo-cd
+  command: helm repo add argo https://argoproj.github.io/argo-helm
 
 - name: Install ArgoCD with Helm
   kubernetes.core.helm:
@@ -9,5 +9,7 @@
     create_namespace: true
     state: present
     kubeconfig: "/home/{{ ansible_user }}/.kube/config"
-    
-
+    values:
+      configs:
+        secret:
+          argocdServerAdminPassword: admin
