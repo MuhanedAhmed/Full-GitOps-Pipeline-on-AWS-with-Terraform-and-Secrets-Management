@@ -11,11 +11,12 @@ resource "kubernetes_secret" "aws_secrets" {
     labels = {
       managed-by = "terraform"
       type       = "aws-credentials"
+      name       = "aws-secrets-manager"
     }
   }
 
   type = "Opaque"
-
+  
   data = {
     AWS_ACCESS_KEY_ID     = var.iam_user_access_key_id
     AWS_SECRET_ACCESS_KEY = var.iam_user_secret_access_key
