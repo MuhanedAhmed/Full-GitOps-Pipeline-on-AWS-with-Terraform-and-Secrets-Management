@@ -31,8 +31,7 @@ resource "aws_instance" "my_instance" {
   iam_instance_profile        = each.value.instance_profile
   key_name                    = var.instance_key_pair
   # user_data_replace_on_change = true
-  user_data = base64decode(file("${path.module}/scripts/bastion.sh"))
-
+  user_data = file("${path.module}/scripts/bastion.sh")
   tags = {
     Name       = each.key
     Deployment = "Terraform"

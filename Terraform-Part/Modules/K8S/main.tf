@@ -1,7 +1,7 @@
 # Get authentication token for the cluster
-data "aws_eks_cluster_auth" "cluster" {
-  name = var.cluster_name
-}
+# data "aws_eks_cluster_auth" "cluster" {
+#   name = var.cluster_name
+# }
 
 # Create additional namespaces if specified
 
