@@ -19,6 +19,15 @@ spec:
           annotations:
             eks.amazonaws.com/role-arn: arn:aws:iam::991424600343:role/gp_argo_image_updater_role
 
+        config:
+          registries:
+            - name: ECR
+              api_url: https://991424600343.dkr.ecr.us-east-1.amazonaws.com
+              prefix: 991424600343.dkr.ecr.us-east-1.amazonaws.com
+              insecure: false
+              credentials:
+                use_aws_sdk: true
+
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
