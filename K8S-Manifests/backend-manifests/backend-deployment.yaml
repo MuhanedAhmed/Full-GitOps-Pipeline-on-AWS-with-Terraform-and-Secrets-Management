@@ -26,27 +26,7 @@ spec:
               memory: "128Mi"
           env:
             - name: MONGODB_URI
-              value: "mongodb://$(MONGO_USERNAME):$(MONGO_PASSWORD)@mongodb:27017/patient_db?authSource=admin"
-            - name: MONGO_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: mongodb-secret
-                  key: username # Changed from mongodb-username
-            - name: MONGO_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mongodb-secret
-                  key: password # Changed from mongodb-password
-            # Removed MONGO_INITDB_DATABASE as it doesn't exist in the secret
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend
-spec:
-  type: ClusterIP
-  ports:
-    - port: 3000
-      targetPort: 3000
-  selector:
-    app: backend
+                  key: MONGODB_URI
