@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: mohamedharoon0/lab-management-system-frontend:latest  
+        image: 991424600343.dkr.ecr.us-east-1.amazonaws.com/frontend-app:v1.0  
         ports:
         - containerPort: 80
         resources:

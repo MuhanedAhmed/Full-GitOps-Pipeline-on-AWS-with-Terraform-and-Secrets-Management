@@ -132,24 +132,3 @@ module "secrets_manager_secrets" {
   database_username = "mongoodb"
   database_password = "password123"
 }
-
-# --------------------------------------------------------------
-# Creating K8S Resources
-# --------------------------------------------------------------
-
-# Two-stage approach
-resource "null_resource" "cluster_ready" {
-  depends_on = [module.eks_cluster, module.iam_roles]
-
-  provisioner "local-exec" {
-    command = "echo 'Cluster ready'"
-  }
-}
-
-module "k8s_secrets" {
-  source      = "./Modules/K8S"
-  github_user = var.github_user
-  github_pass = var.github_pass
-
-  depends_on = [null_resource.cluster_ready]
-}

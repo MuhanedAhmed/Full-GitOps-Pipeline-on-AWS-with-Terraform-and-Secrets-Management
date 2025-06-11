@@ -13,9 +13,15 @@ sudo apt-get install -y ansible
 ansible-galaxy collection install community.kubernetes
 
 git clone --branch mohaned https://github.com/MuhanedAhmed/Full-GitOps-Pipeline-on-AWS-with-Terraform-and-Secrets-Management.git
+
 cd Full-GitOps-Pipeline-on-AWS-with-Terraform-and-Secrets-Management/Ansible-Part
 
-ansible-playbook -i inventory.ini playbook.yml
+until [ -s inventory.ini ]; do
+  echo "Waiting for inventory.ini to become available..."
+  sleep 2
+done
+
+ansible-playbook -i inventory.ini playbook.yaml
 
 # Verify installations
 echo "Verifying installations..."

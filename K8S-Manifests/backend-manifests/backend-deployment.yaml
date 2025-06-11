@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: mohamedharoon0/lab-management-system-backend:latest
+          image: 991424600343.dkr.ecr.us-east-1.amazonaws.com/backend-app:v1.0
           ports:
             - containerPort: 3000
           resources:
@@ -31,13 +31,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: mongodb-secret
-                  key: username # Changed from mongodb-username
+                  key: username 
             - name: MONGO_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: mongodb-secret
-                  key: password # Changed from mongodb-password
-            # Removed MONGO_INITDB_DATABASE as it doesn't exist in the secret
+                  key: password 
 ---
 apiVersion: v1
 kind: Service

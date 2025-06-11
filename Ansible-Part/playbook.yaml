@@ -1,5 +1,5 @@
 - name: Configure Bastion to access Private EKS and install tools
-  hosts: bastion
+  hosts: local
   become: true
   roles:
     - system

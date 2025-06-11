@@ -3,6 +3,10 @@ kind: Application
 metadata:
   name: frontend-app
   namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: 991424600343.dkr.ecr.us-east-1.amazonaws.com/frontend-app:v1.x
+    argocd-image-updater.argoproj.io/991424600343.dkr.ecr.us-east-1.amazonaws.com_frontend-app.update-strategy: semver
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
 spec:
   project: default
   
