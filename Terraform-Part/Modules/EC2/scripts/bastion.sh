@@ -32,8 +32,8 @@ kubectl version --client
 
 # Creating ArgoCD Root App
 echo "Creating ArgoCD Root App..."
-cd ../ArgoCD-Part
-kubectl apply -f root-app.yaml
+cd ..
+kubectl apply -f /Full-GitOps-Pipeline-on-AWS-with-Terraform-and-Secrets-Management/ArgoCD-Part/root-app.yaml
 
 # Wait until argocd-server service is available
 until kubectl get svc argocd-server -n argocd; do
