@@ -1,0 +1,10 @@
+resources:
+  - backend-deployment.yaml
+  - mongodb-statefulset.yaml
+  # - mongodb-init-config-map.yml
+  # - backend-config-map.yaml
+  # - backend-secrets.yaml
+
+images:
+  - name: 991424600343.dkr.ecr.us-east-1.amazonaws.com/backend-app
+    newTag: "1.1"

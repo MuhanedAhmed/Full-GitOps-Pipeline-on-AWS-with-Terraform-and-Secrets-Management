@@ -131,25 +131,6 @@ module "secrets_manager_secrets" {
   source            = "./Modules/Secrets Manager"
   database_username = "mongoodb"
   database_password = "password123"
+  git_username = var.git_username
+  git_password = var.git_password
 }
-
-# --------------------------------------------------------------
-# Creating K8S Resources
-# --------------------------------------------------------------
-
-# Two-stage approach
-# resource "null_resource" "cluster_ready" {
-#   depends_on = [module.eks_cluster, module.iam_roles]
-
-#   provisioner "local-exec" {
-#     command = "echo 'Cluster ready'"
-#   }
-# }
-
-# module "k8s_secrets" {
-#   source                     = "./Modules/K8S"
-#   iam_user_access_key_id     = module.iam_roles.access_key_id
-#   iam_user_secret_access_key = module.iam_roles.secret_access_key
-
-#   depends_on = [null_resource.cluster_ready]
-# }

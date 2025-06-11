@@ -12,4 +12,8 @@
     values:
       configs:
         secret:
-          argocdServerAdminPassword: admin
+          argocdServerAdminPassword: $2a$10$vPq/euiNH1Hur5ZQ9gIkuuRw5uDEOK6CUgcvsw5.9MkGdabhRhMIu
+
+- name: Install Argo Image Updater with kubectl
+  shell: |
+    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml

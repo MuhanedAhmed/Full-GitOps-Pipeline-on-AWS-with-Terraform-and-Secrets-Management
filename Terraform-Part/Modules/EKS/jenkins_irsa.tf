@@ -1,3 +1,7 @@
+# ------------------------------------------------------------------------
+# Creating IAM Role for Service Account for Jenkins Agent (Kaniko) pod 
+# ------------------------------------------------------------------------
+
 data "aws_iam_policy_document" "jenkins_irsa_assume_role" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
@@ -17,7 +21,7 @@ data "aws_iam_policy_document" "jenkins_irsa_assume_role" {
 }
 
 resource "aws_iam_role" "jenkins_irsa_role" {
-  name               = "eks-kaniko-role"
+  name               = "gp_kaniko_role"
   assume_role_policy = data.aws_iam_policy_document.jenkins_irsa_assume_role.json
 }
 
