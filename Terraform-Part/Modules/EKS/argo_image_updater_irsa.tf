@@ -39,7 +39,8 @@ resource "aws_iam_policy" "argo_ecr_policy" {
           "ecr:BatchCheckLayerAvailability",
           "ecr:GetDownloadUrlForLayer",
           "ecr:BatchGetImage",
-          "ecr:DescribeImages"
+          "ecr:DescribeImages",
+          "ecr:ListImages"
         ],
         Resource = "*"
       }

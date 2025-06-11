@@ -22,7 +22,7 @@ spec:
     AWS_REGION = 'us-east-1'
     ECR_REGISTRY = '991424600343.dkr.ecr.us-east-1.amazonaws.com'
     IMAGE_REPO = 'backend-app'
-    IMAGE_TAG = "v1.${BUILD_NUMBER}"
+    IMAGE_TAG = "1.${BUILD_NUMBER}"
     IMAGE = "${ECR_REGISTRY}/${IMAGE_REPO}:${IMAGE_TAG}"
   }
 
