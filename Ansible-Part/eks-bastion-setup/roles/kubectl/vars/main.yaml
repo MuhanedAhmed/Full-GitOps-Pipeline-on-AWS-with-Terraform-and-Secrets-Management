@@ -1,9 +1,0 @@
-eks_cluster_name: "gp_eks_cluster"
-aws_region: "us-east-1"
-
-
-kubectl_version: "v1.31.0"
-kubectl_arch: "amd64"
-kubectl_os: "linux"
-kubectl_url: "https://dl.k8s.io/release/{{ kubectl_version }}/bin/{{ kubectl_os }}/{{ kubectl_arch }}/kubectl"
-kubectl_install_path: "/usr/local/bin/kubectl"
