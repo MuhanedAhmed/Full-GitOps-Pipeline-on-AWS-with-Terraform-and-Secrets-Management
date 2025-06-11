@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: eso-manifests-app
+  namespace: argocd
+  
+spec:
+  project: default
+  
+  source:
+    repoURL: https://github.com/MuhanedAhmed/Full-GitOps-Pipeline-on-AWS-with-Terraform-and-Secrets-Management.git
+    targetRevision: mohaned
+    path: K8S-Manifests/eso-manifests
+  
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+ 

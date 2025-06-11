@@ -131,4 +131,6 @@ module "secrets_manager_secrets" {
   source            = "./Modules/Secrets Manager"
   database_username = "mongoodb"
   database_password = "password123"
+  git_username = var.git_username
+  git_password = var.git_password
 }
