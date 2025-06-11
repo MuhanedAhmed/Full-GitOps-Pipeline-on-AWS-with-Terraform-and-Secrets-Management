@@ -14,7 +14,7 @@ resource "aws_eks_node_group" "gp_eks_node_group" {
   instance_types = ["t3.medium"]
 
   scaling_config {
-    desired_size = 2
+    desired_size = 3
     max_size     = 4
     min_size     = 2
   }
