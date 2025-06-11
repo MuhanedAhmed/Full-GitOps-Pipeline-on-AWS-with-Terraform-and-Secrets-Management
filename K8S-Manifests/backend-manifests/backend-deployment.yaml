@@ -23,11 +23,16 @@ spec:
             - secretRef:
                 name: backend-secrets
           env:
-            - name: MONGODB_URI
+            - name: MONGO_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: mongodb-secret
-                  key: uri
+                  key: username
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: password
           resources:
             requests:
               memory: "128Mi"
