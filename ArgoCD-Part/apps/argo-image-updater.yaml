@@ -24,6 +24,21 @@ spec:
             - name: ECR
               api_url: https://991424600343.dkr.ecr.us-east-1.amazonaws.com
               prefix: 991424600343.dkr.ecr.us-east-1.amazonaws.com
+              insecure: no
+              ping: yes
+              credentials: ext:/scripts/auth.sh
+              credsexpire: 10h
+
+        authScripts:
+          enabled: true
+          scripts:
+            auth.sh: |
+              #!/bin/sh
+              export HOME=/tmp
+              aws ecr get-authorization-token \
+                --region us-east-1 \
+                --output text \
+                --query 'authorizationData[].authorizationToken' | base64 -d
 
   destination:
     server: https://kubernetes.default.svc
