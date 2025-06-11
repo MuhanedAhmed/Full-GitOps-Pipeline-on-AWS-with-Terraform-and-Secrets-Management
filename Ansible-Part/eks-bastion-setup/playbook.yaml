@@ -1,9 +1,0 @@
-- name: Configure Bastion to access Private EKS and install tools
-  hosts: bastion
-  become: true
-  roles:
-    - system
-    - aws-cli
-    - kubectl
-    - helm
-    - eks-apps

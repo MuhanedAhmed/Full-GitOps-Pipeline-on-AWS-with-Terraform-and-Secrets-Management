@@ -1,3 +1,0 @@
-helm_apt_key_url: "https://baltocdn.com/helm/signing.asc"
-helm_apt_key_path: "/usr/share/keyrings/helm.gpg"
-helm_apt_repo: "deb [arch=amd64 signed-by={{ helm_apt_key_path }}] https://baltocdn.com/helm/stable/debian/ all main"

@@ -1,9 +1,0 @@
-- name: Update apt cache
-  apt:
-    update_cache: yes
-- name: Install essential packages
-  apt:
-    name:
-      - curl
-      - unzip
-    state: present
