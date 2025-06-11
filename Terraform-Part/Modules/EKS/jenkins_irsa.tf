@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "jenkins_irsa_assume_role" {
 }
 
 resource "aws_iam_role" "jenkins_irsa_role" {
-  name               = "eks-kaniko-role"  
+  name               = "eks-kaniko-role"
   assume_role_policy = data.aws_iam_policy_document.jenkins_irsa_assume_role.json
 }
 
@@ -51,6 +51,6 @@ resource "aws_iam_policy" "jenkins_kaniko_ecr_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "jenkins_irsa_custom_policy_attach" {
-  role       = aws_iam_role.jenkins_irsa_role.name 
+  role       = aws_iam_role.jenkins_irsa_role.name
   policy_arn = aws_iam_policy.jenkins_kaniko_ecr_policy.arn
 }

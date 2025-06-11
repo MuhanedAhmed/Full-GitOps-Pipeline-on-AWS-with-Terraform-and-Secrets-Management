@@ -1,3 +1,7 @@
+# -------------------------------------------------------------- #
+# -------------- Secrets Manager Module Variables -------------- #
+# -------------------------------------------------------------- #
+
 variable "database_username" {
   description = "The name of the database"
   type        = string

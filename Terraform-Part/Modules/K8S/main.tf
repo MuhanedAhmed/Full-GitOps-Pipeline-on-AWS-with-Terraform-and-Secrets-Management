@@ -1,24 +1,32 @@
-# Get authentication token for the cluster
-# data "aws_eks_cluster_auth" "cluster" {
-#   name = var.cluster_name
+# # --------------------------------------------------------------
+# # Creating Secret for AWS IAM User 'read_secrets' in 'external-secrets' namespace
+# # --------------------------------------------------------------
+
+# # Create external-secrets namespace
+# resource "kubernetes_namespace" "external_secrets_ns" {
+#   metadata {
+#     name = "external-secrets"
+#     labels = {
+#       managed-by = "terraform"
+#     }
+#   }
 # }
 
-# Create additional namespaces if specified
+# # Create AWS credentials secret
+# resource "kubernetes_secret" "aws_secrets" {
+#   metadata {
+#     name      = "aws-secrets-manager"
+#     namespace = kubernetes_namespace.external_secrets_ns.metadata[0].name
+#     labels = {
+#       managed-by = "terraform"
+#       type       = "aws-credentials"
+#     }
+#   }
 
-# Create AWS credentials secret
-resource "kubernetes_secret" "aws_secrets" {
-  metadata {
-    labels = {
-      managed-by = "terraform"
-      type       = "aws-credentials"
-      name       = "aws-secrets-manager"
-    }
-  }
+#   type = "Opaque"
 
-  type = "Opaque"
-  
-  data = {
-    AWS_ACCESS_KEY_ID     = var.iam_user_access_key_id
-    AWS_SECRET_ACCESS_KEY = var.iam_user_secret_access_key
-  }
-}
+#   data = {
+#     AWS_ACCESS_KEY_ID     = var.iam_user_access_key_id
+#     AWS_SECRET_ACCESS_KEY = var.iam_user_secret_access_key
+#   }
+# }

@@ -11,9 +11,7 @@ output "gp_eks_cluster_endpoint" {
   value       = aws_eks_cluster.gp_eks_cluster.endpoint
 }
 
-
-
-output "cluster_ca_certificate" {
+output "gp_eks_cluster_ca_certificate" {
   description = "Base64 encoded certificate data required to communicate with the cluster"
   value       = aws_eks_cluster.gp_eks_cluster.certificate_authority[0].data
 }
