@@ -24,17 +24,10 @@ spec:
                 name: backend-secrets
           env:
             - name: MONGODB_URI
-              value: "mongodb://$(MONGO_USERNAME):$(MONGO_PASSWORD)@mongodb:27017/patient_db?authSource=admin"
-            - name: MONGO_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: mongodb-secret
-                  key: username
-            - name: MONGO_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mongodb-secret
-                  key: password
+                  key: uri
           resources:
             requests:
               memory: "128Mi"

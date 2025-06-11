@@ -43,15 +43,23 @@ spec:
                 secretKeyRef:
                   name: mongodb-secret
                   key: password
+            - name: MONGO_INITDB_DATABASE
+              value: "patient_db"
           volumeMounts:
             - name: mongodb-data
               mountPath: /data/db
+            - name: mongo-init
+              mountPath: /docker-entrypoint-initdb.d/
+      volumes:
+        - name: mongo-init
+          configMap:
+            name: mongo-init
   volumeClaimTemplates:
     - metadata:
         name: mongodb-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "gp2" # This is crucial
+        storageClassName: "gp2"
         resources:
           requests:
             storage: 1Gi
