@@ -38,7 +38,7 @@ spec:
         container('kaniko') {
           sh '''
           /kaniko/executor \
-            --context `pwd`/BackEnd-Part \
+            --context `pwd` \
             --dockerfile `pwd`/BackEnd-Part/Dockerfile \
             --destination=$IMAGE \
             --verbosity=info \

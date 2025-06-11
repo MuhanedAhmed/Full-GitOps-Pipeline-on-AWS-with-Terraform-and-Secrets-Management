@@ -14,8 +14,9 @@ spec:
       releaseName: jenkins
       valuesObject:
         controller:
-          username: admin
-          password: admin
+          admin:
+            username: admin
+            password: admin
           jenkinsHome: "/var/jenkins_home"
         persistence:
           enabled: true

@@ -4,8 +4,9 @@ metadata:
   name: backend-app
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: 991424600343.dkr.ecr.us-east-1.amazonaws.com/backend-app:v1.x
-    argocd-image-updater.argoproj.io/991424600343.dkr.ecr.us-east-1.amazonaws.com_backend-app.update-strategy: semver
+    argocd-image-updater.argoproj.io/image-list: backend=991424600343.dkr.ecr.us-east-1.amazonaws.com/backend-app
+    argocd-image-updater.argoproj.io/backend.update-strategy: semver
+    argocd-image-updater.argoproj.io/backend.allow-tags: ^v1\\.\\d+$
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
 spec:
   project: default
@@ -17,6 +18,7 @@ spec:
   
   destination:
     server: https://kubernetes.default.svc
+    namespace: default
   
   syncPolicy:
     automated:
