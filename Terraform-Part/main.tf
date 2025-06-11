@@ -138,18 +138,18 @@ module "secrets_manager_secrets" {
 # --------------------------------------------------------------
 
 # Two-stage approach
-# resource "null_resource" "cluster_ready" {
-#   depends_on = [module.eks_cluster, module.iam_roles]
+resource "null_resource" "cluster_ready" {
+  depends_on = [module.eks_cluster, module.iam_roles]
 
-#   provisioner "local-exec" {
-#     command = "echo 'Cluster ready'"
-#   }
-# }
+  provisioner "local-exec" {
+    command = "echo 'Cluster ready'"
+  }
+}
 
-# module "k8s_secrets" {
-#   source                     = "./Modules/K8S"
-#   iam_user_access_key_id     = module.iam_roles.access_key_id
-#   iam_user_secret_access_key = module.iam_roles.secret_access_key
+module "k8s_secrets" {
+  source      = "./Modules/K8S"
+  github_user = var.github_user
+  github_pass = var.github_pass
 
-#   depends_on = [null_resource.cluster_ready]
-# }
+  depends_on = [null_resource.cluster_ready]
+}

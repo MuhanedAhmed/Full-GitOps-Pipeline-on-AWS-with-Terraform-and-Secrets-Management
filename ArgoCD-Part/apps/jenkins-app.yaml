@@ -5,6 +5,7 @@ metadata:
   namespace: argocd
 spec:
   project: default
+  
   source:
     repoURL: https://charts.jenkins.io
     chart: jenkins
@@ -24,10 +25,12 @@ spec:
           create: true
           name: kaniko-sa
           annotations:
-            eks.amazonaws.com/role-arn: arn:aws:iam::991424600343:role/eks-kaniko-role
+            eks.amazonaws.com/role-arn: arn:aws:iam::991424600343:role/gp_kaniko_role
+  
   destination:
     server: https://kubernetes.default.svc
     namespace: jenkins
+  
   syncPolicy:
     automated:
       prune: true

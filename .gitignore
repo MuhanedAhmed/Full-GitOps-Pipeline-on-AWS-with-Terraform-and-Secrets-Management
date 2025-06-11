@@ -1,3 +1,4 @@
 Terraform-Part/.terraform/
 Terraform-Part/*.lock.hcl
+Terraform-Part/terraform.tfvars
 Backend/node_modules/

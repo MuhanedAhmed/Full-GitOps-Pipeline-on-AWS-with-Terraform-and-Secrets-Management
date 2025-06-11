@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------
-# Creating OIDC provider for the cluster addons roles
+# Creating OIDC provider for the cluster IRSA
 # ------------------------------------------------------------------------
 
 data "tls_certificate" "example" {

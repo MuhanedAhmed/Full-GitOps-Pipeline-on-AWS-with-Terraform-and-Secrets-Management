@@ -1,15 +1,14 @@
-# # -------------------------------------------------------------- #
-# # -------------------- K8S Module Variables -------------------- #
-# # -------------------------------------------------------------- #
+# -------------------------------------------------------------- #
+# -------------------- K8S Module Variables -------------------- #
+# -------------------------------------------------------------- #
 
-# variable "iam_user_access_key_id" {
-#   description = "The AWS IAM user access key ID"
-#   type        = string
-#   sensitive   = true
-# }
+variable "github_user" {
+  description = "Github username required for Argo Image Updater"
+  type        = string
+}
 
-# variable "iam_user_secret_access_key" {
-#   description = "The AWS IAM user secret access key"
-#   type        = string
-#   sensitive   = true
-# }
+variable "github_pass" {
+  description = "Github password required for Argo Image Updater"
+  type        = string
+  sensitive   = true
+}

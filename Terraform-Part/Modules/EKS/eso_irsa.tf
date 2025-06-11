@@ -1,3 +1,7 @@
+# ------------------------------------------------------------------------
+# Creating IAM Role for Service Account for External Secrets Operator pod 
+# ------------------------------------------------------------------------
+
 data "aws_iam_policy_document" "eso_irsa_assume_role" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
@@ -17,7 +21,7 @@ data "aws_iam_policy_document" "eso_irsa_assume_role" {
 }
 
 resource "aws_iam_role" "eso_irsa_role" {
-  name               = "eks-eso-role"
+  name               = "gp_eso_role"
   assume_role_policy = data.aws_iam_policy_document.eso_irsa_assume_role.json
 }
 

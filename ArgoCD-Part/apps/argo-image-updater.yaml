@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-image-updater
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argocd-image-updater
+    targetRevision: 0.12.1
+    helm:
+      releaseName: argocd-image-updater
+      valuesObject:
+        serviceAccount:
+          create: true
+          name: argocd-image-updater-sa
+          annotations:
+            eks.amazonaws.com/role-arn: arn:aws:iam::991424600343:role/gp_argo_image_updater_role
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

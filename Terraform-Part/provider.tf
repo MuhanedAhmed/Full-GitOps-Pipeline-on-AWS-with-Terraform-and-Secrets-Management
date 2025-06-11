@@ -37,13 +37,13 @@ provider "aws" {
 # Setting the configurations of Kubernetes provider
 # ---------------------------------------------------------------------
 
-# data "aws_eks_cluster_auth" "cluster" {
-#   name       = module.eks_cluster.gp_eks_cluster_name
-#   depends_on = [module.eks_cluster]
-# }
+data "aws_eks_cluster_auth" "cluster" {
+  name       = module.eks_cluster.gp_eks_cluster_name
+  depends_on = [module.eks_cluster]
+}
 
-# provider "kubernetes" {
-#   host                   = module.eks_cluster.gp_eks_cluster_endpoint
-#   cluster_ca_certificate = base64decode(module.eks_cluster.gp_eks_cluster_ca_certificate)
-#   token                  = data.aws_eks_cluster_auth.cluster.token
-# }
+provider "kubernetes" {
+  host                   = module.eks_cluster.gp_eks_cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks_cluster.gp_eks_cluster_ca_certificate)
+  token                  = data.aws_eks_cluster_auth.cluster.token
+}

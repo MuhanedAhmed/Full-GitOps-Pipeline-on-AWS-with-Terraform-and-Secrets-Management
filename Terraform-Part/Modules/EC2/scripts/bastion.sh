@@ -12,11 +12,10 @@ sudo apt-get install -y ansible
 # Install Ansible community.kubernetes collection
 ansible-galaxy collection install community.kubernetes
 
-git clone --branch nayra https://github.com/MuhanedAhmed/Full-GitOps-Pipeline-on-AWS-with-Terraform-and-Secrets-Management.git
-cd Full-GitOps-Pipeline-on-AWS-with-Terraform-and-Secrets-Management
+git clone --branch mohaned https://github.com/MuhanedAhmed/Full-GitOps-Pipeline-on-AWS-with-Terraform-and-Secrets-Management.git
+cd Full-GitOps-Pipeline-on-AWS-with-Terraform-and-Secrets-Management/Ansible-Part
 
-ansible-playbook ./Full-GitOps-Pipeline-on-AWS-with-Terraform-and-Secrets-Management/Ansible-Part/eks-bastion-setup/playbook.yml \
--i ./Full-GitOps-Pipeline-on-AWS-with-Terraform-and-Secrets-Management/Ansible-Part/eks-bastion-setup/inventory.ini
+ansible-playbook -i inventory.ini playbook.yml
 
 # Verify installations
 echo "Verifying installations..."
@@ -25,10 +24,27 @@ git --version
 ansible --version
 kubectl version --client
 
-echo "Installing Argo Cd Image Updater..."
+# Creating ArgoCD Root App
+echo "Creating ArgoCD Root App..."
+cd ../ArgoCD-Part
+kubectl apply -f root-app.yaml
 
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
+# Wait until argocd-server service is available
+until kubectl get svc argocd-server -n argocd; do
+  echo "Waiting for ArgoCD server service..."
+  sleep 5
+done
 
+# Start port forwarding for argocd
 echo "Port Forwarding for Argo CD service..."
+nohup kubectl port-forward service/argocd-server -n argocd 8090:443 > /var/log/port-forward.log 2>&1 &
 
-kubectl port-forward service/argocd-server -n argocd 8090:443 
+# Wait until jenkins service is available
+until kubectl get svc jenkins -n jenkins; do
+  echo "Waiting for jenkins service..."
+  sleep 5
+done
+
+# Start port forwarding for jenkins
+echo "Port Forwarding for Argo CD service..."
+nohup kubectl port-forward service/jenkins -n jenkins 8080:8080 > /var/log/jenkins-port-forward.log 2>&1 &
