@@ -21,8 +21,8 @@ spec:
   environment {
     AWS_REGION = 'us-east-1'
     ECR_REGISTRY = '991424600343.dkr.ecr.us-east-1.amazonaws.com'
-    IMAGE_REPO = 'gp_ecr_repository'
-    IMAGE_TAG = 'latest'
+    IMAGE_REPO = 'frontend-app'
+    IMAGE_TAG = "v1.${BUILD_NUMBER}"
     IMAGE = "${ECR_REGISTRY}/${IMAGE_REPO}:${IMAGE_TAG}"
   }
 
@@ -38,7 +38,7 @@ spec:
         container('kaniko') {
           sh '''
           /kaniko/executor \
-            --context `pwd` \
+            --context `pwd`/FrontEnd-Part \
             --dockerfile `pwd`/FrontEnd-Part/Dockerfile \
             --destination=$IMAGE \
             --verbosity=info \
