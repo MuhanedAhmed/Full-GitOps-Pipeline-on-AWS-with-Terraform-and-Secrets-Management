@@ -1,0 +1,3 @@
+kustomize:
+  images:
+  - 991424600343.dkr.ecr.us-east-1.amazonaws.com/frontend-app:v1.1
