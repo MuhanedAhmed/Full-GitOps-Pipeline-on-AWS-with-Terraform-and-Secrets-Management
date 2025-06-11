@@ -1,6 +1,6 @@
 resources:
   - backend-deployment.yaml
   - mongodb-statefulset.yaml
-  - mongodb-init-config-map.yml
-  - backend-config-map.yaml
-  - backend-secrets.yaml
+  # - mongodb-init-config-map.yml
+  # - backend-config-map.yaml
+  # - backend-secrets.yaml
