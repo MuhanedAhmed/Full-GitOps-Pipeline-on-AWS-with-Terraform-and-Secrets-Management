@@ -30,6 +30,14 @@ spec:
       containers:
         - name: mongodb
           image: mongo:latest
+          command:
+            - bash
+            - -c
+            - |
+              mongod --bind_ip_all &
+              sleep 5
+              mongosh admin --eval "db.createUser({user: '$MONGO_INITDB_ROOT_USERNAME', pwd: '$MONGO_INITDB_ROOT_PASSWORD', roles: [{role: 'root', db: 'admin'}, {role: 'readWrite', db: 'patient_db'}]})"
+              tail -f /dev/null
           ports:
             - containerPort: 27017
           env:
@@ -51,7 +59,7 @@ spec:
         name: mongodb-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "gp2" # This is crucial
+        storageClassName: "gp2"
         resources:
           requests:
             storage: 1Gi

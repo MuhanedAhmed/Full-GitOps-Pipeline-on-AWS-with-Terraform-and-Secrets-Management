@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-init
+data:
+  init.js: |
+    db = db.getSiblingDB('patient_db');
+    db.createUser({
+      user: process.env.MONGO_INITDB_ROOT_USERNAME,
+      pwd: process.env.MONGO_INITDB_ROOT_PASSWORD,
+      roles: [
+        { role: "readWrite", db: "patient_db" },
+        { role: "dbAdmin", db: "patient_db" }
+      ]
+    });
