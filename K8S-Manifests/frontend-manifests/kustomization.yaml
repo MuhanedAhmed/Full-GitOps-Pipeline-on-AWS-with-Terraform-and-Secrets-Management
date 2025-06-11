@@ -1,3 +1,5 @@
 resources:
   - frontend-deployment.yaml
   - ingress.yaml
+  - backend-config-map.yaml
+  - backend-secrets.yaml
