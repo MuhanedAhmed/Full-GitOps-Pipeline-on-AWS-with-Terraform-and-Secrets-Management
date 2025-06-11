@@ -13,35 +13,31 @@ spec:
         app: backend
     spec:
       containers:
-      - name: backend
-        image: mohamedharoon0/lab-management-system-backend:latest  
-        ports:
-        - containerPort: 3000
-        resources:
-          limits:
-            cpu: "0.5"
-            memory: "512Mi"
-          requests:
-             cpu: "0.1"
-             memory: "128Mi"
-        env:
-        - name: MONGODB_URI
-          value: "mongodb://username:password@mongodb:27017/patient_db?authSource=admin"
-        - name: MONGO_INITDB_ROOT_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: mongodb-secret
-              key: mongodb-username
-        - name: MONGO_INITDB_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mongodb-secret
-              key: mongodb-password
-        - name: MONGO_INITDB_DATABASE
-          valueFrom:
-            secretKeyRef:
-              name: mongodb-secret
-              key: mongodb-database
+        - name: backend
+          image: mohamedharoon0/lab-management-system-backend:latest
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              cpu: "0.5"
+              memory: "512Mi"
+            requests:
+              cpu: "0.1"
+              memory: "128Mi"
+          env:
+            - name: MONGODB_URI
+              value: "mongodb://$(MONGO_USERNAME):$(MONGO_PASSWORD)@mongodb:27017/patient_db?authSource=admin"
+            - name: MONGO_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: username # Changed from mongodb-username
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: password # Changed from mongodb-password
+            # Removed MONGO_INITDB_DATABASE as it doesn't exist in the secret
 ---
 apiVersion: v1
 kind: Service
@@ -50,7 +46,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 3000
-    targetPort: 3000
+    - port: 3000
+      targetPort: 3000
   selector:
-    app: backend 
+    app: backend
