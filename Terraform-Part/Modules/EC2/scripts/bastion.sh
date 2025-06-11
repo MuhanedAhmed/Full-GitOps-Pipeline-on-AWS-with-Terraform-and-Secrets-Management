@@ -34,23 +34,3 @@ kubectl version --client
 echo "Creating ArgoCD Root App..."
 cd ..
 kubectl apply -f /Full-GitOps-Pipeline-on-AWS-with-Terraform-and-Secrets-Management/ArgoCD-Part/root-app.yaml
-
-# Wait until argocd-server service is available
-until kubectl get svc argocd-server -n argocd; do
-  echo "Waiting for ArgoCD server service..."
-  sleep 5
-done
-
-# Start port forwarding for argocd
-echo "Port Forwarding for Argo CD service..."
-nohup kubectl port-forward service/argocd-server -n argocd 8090:443 > /var/log/port-forward.log 2>&1 &
-
-# Wait until jenkins service is available
-until kubectl get svc jenkins -n jenkins; do
-  echo "Waiting for jenkins service..."
-  sleep 5
-done
-
-# Start port forwarding for jenkins
-echo "Port Forwarding for Argo CD service..."
-nohup kubectl port-forward service/jenkins -n jenkins 8080:8080 > /var/log/jenkins-port-forward.log 2>&1 &
